@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "0PTmmGUyDhHs4F6mhY+t6l/w9V0qNRGGWXW+TNAwaQk=",
+  "Source": "simple-crud-app-be",
+  "BasePath": "_content/simple-crud-app-be",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
