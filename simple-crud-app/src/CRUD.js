@@ -65,18 +65,51 @@ const CRUD = () => {
     }
 
     const handleEdit = (id) => {
-        //alert(id);
+       
         handleShow();
+        axios.get(`https://localhost:7078/api/Employee/${id}`)
+        .then((result) => {
+            setEditName(result.data.name);
+            setEditAge(result.data.age);
+            setEditIsActive(result.data.isActive);
+            setEditId(id);
+        })
     }
 
     const handleDelete = (id) => {
         if (window.confirm("Are you sure to delete this employee") == true) {
-            alert(id);
+            axios.delete(`https://localhost:7078/api/Employee/${id}`)
+                .then((result) => {
+                    if (result.status === 200) {
+                        toast.success('Employee has been deleted');
+                        getData();
+                    }
+                })
+                .catch ((error) => {
+                    toast.error(error);
+                })
         }
     }
 
     const handleUpdate = () => {
+        const url = `https://localhost:7078/api/Employee/${editID}`;
+        const data = {
+            "id": editID,
+            "name": editName,
+            "age": editAge,
+            "isActive": editIsActive
+        }
 
+        axios.put(url, data)
+            .then((result) => {
+                handleClose();
+                getData();
+                clear();
+                toast.success('Employee has been updated');
+            })
+            .catch((error) => {
+                toast.error(error);
+            })
     }
 
     const handleSave = () => {
@@ -91,7 +124,10 @@ const CRUD = () => {
             .then((result) => {
                 getData();
                 clear();
-                toast.success('Employerr has been added');
+                toast.success('Employee has been added');
+            })
+            .catch((error) => {
+                toast.error(error);
             })
     }
 
@@ -198,7 +234,8 @@ const CRUD = () => {
                         </Col>
                         <Col>
                             <input type="text" className="form-control" placeholder="Enter Age"
-                                value={editAge} onChange={(e) => setEditAge(e.target.value)} />
+                                value={editAge} onChange={(e) => setEditAge(e.target.value)} 
+                                />
                         </Col>
                         <Col>
                             <input type="checkbox"
